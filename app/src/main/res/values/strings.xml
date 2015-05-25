@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Multimedia</string>
+
+    <string name="action_settings">Configuración</string>
+    <string name="action_new_file">Nuevo Archivo</string>
+    <string name="action_new_folder">Nueva Carpeta</string>
+    <string name="action_play">Reproducir</string>
+    <string name="action_exit">Salir</string>
+    <string name="empty">No hay archivos</string>
+    <string name="action_library">Librería</string>
+    <string name="action_reports">Reportes</string>
+    <string name="reportsNote">Seleccione un reporte</string>
+
+</resources>

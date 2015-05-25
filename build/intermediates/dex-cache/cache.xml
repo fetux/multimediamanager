@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/exploded-aar/com.github.satyan/sugar/1.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="07e07903922250dabf50c7d131d6fa069a050305">
+        <dex dex="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/pre-dexed/debug/classes-3da5a98105457518f27204031b406a65b8a51e22.jar" />
+    </item>
+    <item
+        jar="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-49c580a50f7d2c9c71334a96feb180ca82c0f055.jar" />
+    </item>
+    <item
+        jar="/home/fetu/.android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-f27046195779a7bf338b3ddbc3260be20bf674b3.jar" />
+    </item>
+    <item
+        jar="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/pre-dexed/debug/classes-b545f16835f107797b69712bdecd70d80beca7ac.jar" />
+    </item>
+    <item
+        jar="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/fetu/documentos/ucaece/alg-es-ii/java/tp-grupal/Multimedia/app/build/intermediates/pre-dexed/debug/classes-4e3adc4a351286dcaf18b007fa7adcac88061029.jar" />
+    </item>
+
+</items>
