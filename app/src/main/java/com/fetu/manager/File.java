@@ -1,17 +1,10 @@
 package com.fetu.manager;
 
-import com.orm.SugarRecord;
-
 import java.util.Date;
 
-/**
- * Created by fetu on 22/04/15.
- */
 
-public class File extends SugarRecord<File> implements Comparable<Object>{
+public class File extends Nodo implements Comparable<Object>{
 
-    private Long id;
-    private String name;
     private Integer size;
     private Date date_last_rep;
     private Date date_last_mod;
@@ -19,50 +12,52 @@ public class File extends SugarRecord<File> implements Comparable<Object>{
     private String path;
     private String hashtags;
 
+    private String containers;
 
-    public Long getId() {
-        return id;
+    public String getContainers() {
+        return containers;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setContainers(String containers) {
+        this.containers = containers;
     }
+
 
     public File(){}
 
-    public File(Long id,String name,Integer size, Date date_last_rep, Date date_last_mod, Integer reproductions,String path,String hashtags) {
-        this.id = id;
-        this.name = name;
+    public File(String name,Integer size, Date date_last_rep, Date date_last_mod, Integer reproductions,String path,String hashtags) {
+
+        this.setName(name);
         this.size = size;
         this.date_last_rep = date_last_rep;
         this.date_last_mod = date_last_mod;
         this.reproductions = reproductions;
         this.path = path;
         this.hashtags = hashtags;
+        this.containers = "";
     }
 
-    public File(Long id,String name,Integer size,String path,String hashtags) {
-        this.id = id;
-        this.name = name;
+    public File(String name,Integer size,String path,String hashtags) {
+
+        this.setName(name);
         this.size = size;
         this.date_last_rep = new Date();
         this.date_last_mod = new Date();
         this.reproductions = 0;
         this.path = path;
         this.hashtags = hashtags;
+        this.containers = "";
     }
+
 
     public File(Long id_file){
         this.id = id_file;
+
     }
 
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public File (Long id_file,String name){
+        this.id = id_file;
+        this.setName(name);
     }
 
     public Integer getSize() {
@@ -117,9 +112,9 @@ public class File extends SugarRecord<File> implements Comparable<Object>{
     @Override
     public int compareTo(Object another) {
 
-        File f = (File) another;
+        Nodo f = (Nodo) another;
 
-        return this.id.compareTo(f.getId());
+        return (this.getName()).compareTo(f.getName());
     }
 
     @Override
@@ -127,11 +122,11 @@ public class File extends SugarRecord<File> implements Comparable<Object>{
         if (this == o) return true;
         if (!(o instanceof File)) return false;
 
-        File file = (File) o;
+        Nodo f = (Nodo) o;
 
-        if (id != null ? !id.equals(file.id) : file.id != null) return false;
+        boolean eqId = this.getId().equals(f.getId());
 
-        return true;
+        return (eqId) ? eqId : (this.getName()).equals(f.getName());
     }
 
     @Override
@@ -142,9 +137,10 @@ public class File extends SugarRecord<File> implements Comparable<Object>{
     @Override
     public String toString() {
 
+
         String last_rep = (date_last_rep != null) ?  date_last_rep.toString() : "nunca reproducido";
         return "Id: " + id.toString() + '\n' +
-               "Nombre: " + name + '\n' +
+               "Nombre: " + getName() + '\n' +
                "Tamaño: " + size.toString() + '\n' +
                "Ultima reproducción: " + last_rep + '\n' +
                "Ultima modificacion: " + date_last_mod.toString() + '\n' +
@@ -152,6 +148,8 @@ public class File extends SugarRecord<File> implements Comparable<Object>{
                "Path: " + path + '\n' +
                "Hastags: " + hashtags;
 
+
     }
+
 
 }

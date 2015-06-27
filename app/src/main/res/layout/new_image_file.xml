@@ -39,7 +39,8 @@
     <EditText
         android:id="@+id/resolution"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -49,7 +50,8 @@
     <EditText
         android:id="@+id/height"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -59,7 +61,8 @@
     <EditText
         android:id="@+id/width"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/newImageFile"

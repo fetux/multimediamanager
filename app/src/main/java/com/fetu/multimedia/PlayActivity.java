@@ -9,7 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.fetu.multimedia.MainActivity.app;
+import com.fetu.manager.Manager;
 
 /**
  * Created by fetu on 21/05/15.
@@ -24,12 +24,11 @@ public class PlayActivity extends Activity {
 
         TextView textView = new TextView(this);
 
-        textView.setText(app.playList(app.getFiles()));
+        textView.setText(Manager.getInstance().playList(Manager.getInstance().getList()));
 
         ScrollView scrollView = (ScrollView) findViewById(R.id.reproduccion);
 
         scrollView.addView(textView);
-
 
 
     }
@@ -57,7 +56,7 @@ public class PlayActivity extends Activity {
                 break;
 
             case R.id.action_exit :
-                Toast.makeText(this,"Salir de la app",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Salir de la Manager.getInstance()",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.action_new_file :

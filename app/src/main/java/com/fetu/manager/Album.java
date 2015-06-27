@@ -1,30 +1,27 @@
 package com.fetu.manager;
 
 
-import java.util.TreeSet;
-
-
-/**
- * Created by fetu on 22/04/15.
- */
-
 public class Album extends Container implements Comparable<Object> {
 
-    private Long id;
-    private String name;
-
-
-    public Long getId() {
-        return id;
-    }
+    private Long container;
 
     public Album(){}
 
-    public Album(Long id, String name) {
-        this.id = id;
-        this.name = name;
-        this.setFiles(new TreeSet<File>());
-        this.setAlbums(new TreeSet<Album>());
+    public Long getContainer() {
+        return container;
+    }
+
+    public void setContainer(Long container) {
+        this.container = container;
+    }
+
+    public Album(String name, Long container) {
+        super();
+
+        this.container = container;
+        this.setName(name);
+
+
     }
 
     public Album(Long id) {
@@ -35,20 +32,14 @@ public class Album extends Container implements Comparable<Object> {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public int compareTo(Object another) {
 
-        Album a = (Album) another;
+        Nodo a = (Nodo) another;
 
-        return this.id.compareTo(a.getId());
+        int compId = this.id.compareTo(a.getId());
+
+        return  (compId != 0) ? compId : this.getName().compareTo(a.getName());
 
     }
 
@@ -60,7 +51,6 @@ public class Album extends Container implements Comparable<Object> {
         Album album = (Album) o;
 
         if (id != null ? !id.equals(album.id) : album.id != null) return false;
-        //if (name != null ? !name.equals(album.name) : album.name != null) return false;
 
         return true;
     }
@@ -69,14 +59,14 @@ public class Album extends Container implements Comparable<Object> {
     public String toString() {
         return "Album{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + getName() + '\'' +
                 '}';
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         return result;
     }
 
@@ -85,7 +75,6 @@ public class Album extends Container implements Comparable<Object> {
         this.getFiles().add(f);
         this.save();
 
-        //return this.getFiles().add(f) ? 1 : 0;
         return 1;
     }
 
@@ -93,5 +82,6 @@ public class Album extends Container implements Comparable<Object> {
 
         return this.getFiles().remove(f) ? 1 : 0;
     }
+
 
 }

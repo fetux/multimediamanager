@@ -18,13 +18,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:singleLine="true"/>
 
-    <TextView
-        android:id="@+id/hashtags"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/icon"
-        android:layout_below="@+id/name"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"/>
-
 </RelativeLayout>

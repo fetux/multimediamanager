@@ -9,153 +9,77 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fetu.manager.Album;
+import com.fetu.manager.AudioFile;
 import com.fetu.manager.File;
+import com.fetu.manager.ImageFile;
 import com.fetu.manager.Manager;
+import com.fetu.manager.Nodo;
+import com.fetu.manager.VideoFile;
+
+import java.util.Iterator;
+import java.util.TreeSet;
 
 
 public class MainActivity extends ListActivity{
 
 
-    public static Manager app = new Manager(800000);
+    //public static Manager Manager.getInstance() = new Manager(800000);
+
+
+    static TreeSet<Nodo> library;
+    Long id_container;
+    Long id_up_container;
+
+    public static TreeSet<Nodo> getLibrary() {
+        return library;
+    }
+
+    public static void setLibrary(TreeSet<Nodo> library) {
+        library = library;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        id_container = new Long(0);
+        id_up_container = null;
 
-
-
-
-
-
-        app.addFile("Bob Marley - Buffalo Soldier.ogg",4000, "/home/fetu/musica/", "#marley #reggae", 128, 300);
-        app.addFile("Andres Calamaro - Flaca.ogg",4680,"/home/fetu/musica/","#calamaro #rock",128,367);
-/*
-        app.addFile("archivo1.jpg",3754,"/home/fetu/imagenes/","#imagen1",5,1920,1080);
-        app.addFile("archivo2.png",5614,"/home/fetu/imagenes/","#imagenPNG",5,1920,1080);
-
-        app.addFile("archivo1.mp4",2876,"/home/fetu/videos/","#video1",397,"1920x1080",60);
-        app.addFile("archivo1.ogv",3414,"/home/fetu/videos/","#videoOGV",567,"1920x1080",120);
-
-        TreeSet<File> origin = app.getFiles();
-
-        TreeSet<File> result = app.sortFiles("size");
-
-
-        Iterator<File> iterator = origin.iterator();
-        while(iterator.hasNext()){
-
-            File f = iterator.next();
-            Log.i("Original", f.getId().toString());
-        }
-
-        Iterator<File> iterator2 = result.iterator();
-        while(iterator2.hasNextandroid:longClickable="true"()){
-
-            File f = (File) iterator2.next();
-            Log.i("Result", f.toString());
-        }
-
-        app.addAlbum("Mi album");
-
-        Album a = app.getAlbumById(new Long(1));
-
-        Log.i("Album obtenido: ", a.toString());
-
-        a.addAlbum("Mi subalbum");
-
-        File f = app.getFileById(new Long(3));
-
-        a.linkFile(f);
-
-
-
-        Album sa = a.getAlbumById(new Long(1));
-
-        File ff = app.getFileById(new Long(5));
-
-       //Log.i("ff",ff);
-
-        sa.linkFile(ff);
-
-        iterator = sa.getFiles().iterator();
-        while(iterator.hasNext()){
-
-            f = iterator.next();
-            Log.i("Original SubAlbum", f.toString());
-        }
-
-
-        TreeSet<File> busqueda = app.searchFilesByName("chivo");
-
-        Iterator<File> iterator3 = busqueda.iterator();
-        while(iterator3.hasNext()){
-
-            File fb = (File) iterator3.next();
-            Log.i("Busqueda", fb.toString());
+        if (library == null){
+            library = new TreeSet<Nodo>();
+            library.addAll(new TreeSet<Nodo>(Manager.getInstance().getFiles()));
+            library.addAll(new TreeSet<Nodo>(Manager.getInstance().getAlbums()));
         }
 
 
 
+        setListAdapter(new FileAdapter(this, library));
 
-        a.addAlbum("Mi SubAlbum 2");
-
-        Album sa2 = a.getAlbumById(new Long(2));
-
-        sa2.linkFile(app.getFileById(new Long(2)));
-        sa2.linkFile(app.getFileById(new Long(3)));
-        sa2.linkFile(app.getFileById(new Long(5)));
-
-
-        Log.i("Albums Gestor", app.getAlbums().toString());
-        Log.i("Albums Mi Album",a.getAlbums().toString());
-        Log.i("Archivos Mi Album",a.getFiles().toString());
-        Log.i("Albums Mi SubAlbum 1",sa.getAlbums().toString());
-        Log.i("Archivos Mi SubAlbum 1",sa.getFiles().toString());
-        Log.i("Albums Mi SubAlbum 2",sa2.getAlbums().toString());
-        Log.i("Archivos Mi SubAlbum2",sa2.getFiles().toString());
-
-
-
-        app.removeFile(new Long(5));
-
-        Log.i("Despues de eliminar","hola");
-        Log.i("Albums Gestor", app.getAlbums().toString());
-        Log.i("Archivos Gestor",app.getFiles().toString());
-        Log.i("Albums Mi Album",a.getAlbums().toString());
-        Log.i("Archivos Mi Album",a.getFiles().toString());
-        Log.i("Albums Mi SubAlbum 1",sa.getAlbums().toString());
-        Log.i("Archivos Mi SubAlbum 1",sa.getFiles().toString());
-        Log.i("Albums Mi SubAlbum 2",sa2.getAlbums().toString());
-        Log.i("Archivos Mi SubAlbum2",sa2.getFiles().toString());
-
-
-        ArrayList<File> files = new ArrayList<File>();
-        Iterator<File> iterator4 = origin.iterator();
-        while(iterator4.hasNext()){
-
-            File file = iterator4.next();
-
-            files.add(file);
-
-        }
-        */
-
-        //app.save();
-
-        //app.playList(origin);
-
-
-        //setListAdapter(new ArrayAdapter<File>(this,R.layout.file,R.id.name,files));
-        setListAdapter(new FileAdapter(this, app.getFiles()));
         registerForContextMenu(getListView());
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((BaseAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    public void updateList(){
+        Manager.getInstance().loadFromDb();
+        library.clear();
+        library.addAll(Manager.getInstance().getFiles());
+        library.addAll(Manager.getInstance().getAlbums());
+        setListAdapter(new FileAdapter(this, library));
+        registerForContextMenu(getListView());
     }
 
 
@@ -176,6 +100,53 @@ public class MainActivity extends ListActivity{
 
         switch (item.getItemId()){
 
+            case R.id.action_up_level :
+
+                if (this.id_container != 0 ){
+
+                    if (this.id_up_container != null){
+
+                        Album album = Manager.getInstance().getAlbumById(id_up_container);
+
+                        if (album == null){
+
+                            Iterator<Album> parents = Manager.getInstance().getAlbums().iterator();
+                            Boolean found = false;
+                            while (parents.hasNext() && !found){
+                                Album parent = parents.next();
+                                album = parent.getAlbumById(id_up_container);
+                                if (album != null) found = true;
+                            }
+
+                        }
+
+                        library.clear();
+                        library.addAll(album.getFiles());
+                        library.addAll(album.getAlbums());
+                        id_container = album.getId();
+                        id_up_container = album.getContainer();
+                        setListAdapter(new FileAdapter(this, library));
+                        registerForContextMenu(getListView());
+
+                    }
+                    else {
+                        library.clear();
+                        library.addAll(Manager.getInstance().getFiles());
+                        library.addAll(Manager.getInstance().getAlbums());
+                        id_container =  new Long(0);
+                        id_up_container = null;
+                        setListAdapter(new FileAdapter(this, library));
+                        registerForContextMenu(getListView());
+                    }
+
+
+                } else {
+
+                }
+
+                break;
+
+
             case R.id.action_settings :
                 Toast.makeText(this, "Configuración", Toast.LENGTH_SHORT).show();
                 break;
@@ -185,22 +156,51 @@ public class MainActivity extends ListActivity{
                 break;
 
             case R.id.action_new_file :
-                //Toast.makeText(this,"Añadir nuevo archivo",Toast.LENGTH_SHORT).show();
-
                 Intent n = new Intent(this,NewFileActivity.class);
                 startActivity(n);
-
-                break;
+                 break;
 
             case R.id.action_new_folder :
                 Intent a = new Intent(this,NewAlbumActivity.class);
+                a.putExtra("container",id_container);
                 startActivity(a);
                 break;
 
             case R.id.action_play :
 
+                //Manager.getInstance().setList(Manager.getInstance().getFiles());
+                Manager.getInstance().getList().clear();
+                Iterator<Nodo> nodos = library.iterator();
+                while (nodos.hasNext()){
+                    Nodo nodo = nodos.next();
+                    if (nodo instanceof File){
+                        Manager.getInstance().getList().add((File) nodo);
+                    }
+                }
+
                 Intent i = new Intent(this,PlayActivity.class);
                 startActivity(i);
+
+                break;
+
+            case R.id.action_play_sorted:
+
+                Manager.getInstance().getList().clear();
+                Intent is = new Intent(this,PlaySortedActivity.class);
+                startActivity(is);
+                break;
+
+            case R.id.action_sort :
+
+
+                Intent s = new Intent(this,SortActivity.class);
+                startActivity(s);
+                break;
+
+            case R.id.action_filter :
+
+                Intent f = new Intent(this,FilterActivity.class);
+                startActivity(f);
 
                 break;
 
@@ -233,13 +233,28 @@ public class MainActivity extends ListActivity{
             menu.setHeaderTitle(name.getText().toString());
 
 
+            Nodo nodo = (Nodo) getListAdapter().getItem((int) info.id);
 
-            menu.add(Menu.NONE, 1, 1, "Reproducir");
-            menu.add(Menu.NONE, 2, 2, "Añadir a la lista de reproducción");
-            menu.add(Menu.NONE, 3, 3, "Añadir a Album");
-            menu.add(Menu.NONE, 4, 4, "Ver detalles");
-            menu.add(Menu.NONE, 5, 5, "Editar");
-            menu.add(Menu.NONE, 6, 6, "Eliminar");
+            if (nodo instanceof File) {
+
+                menu.add(Menu.NONE, 1, 1, "Reproducir");
+                menu.add(Menu.NONE, 2, 2, "Añadir a la lista de reproducción");
+                menu.add(Menu.NONE, 3, 3, "Añadir a Album");
+                menu.add(Menu.NONE, 4, 4, "Ver detalles");
+                menu.add(Menu.NONE, 5, 5, "Configurar");
+                menu.add(Menu.NONE, 6, 6, "Eliminar");
+
+            }
+            else if (nodo instanceof Album) {
+
+                menu.add(Menu.NONE, 1, 1, "Abrir");
+                menu.add(Menu.NONE, 2, 2, "Añadir a la lista de reproducción");
+                menu.add(Menu.NONE, 3, 3, "Añadir a Album");
+                menu.add(Menu.NONE, 4, 4, "Ver detalles");
+                menu.add(Menu.NONE, 5, 5, "Editar");
+                menu.add(Menu.NONE, 6, 6, "Eliminar");
+
+            }
 
         }
 
@@ -256,41 +271,156 @@ public class MainActivity extends ListActivity{
         long listItemIndex = info.id;
         int menuItemIndex = item.getItemId();
 
-        File file = (File) getListAdapter().getItem((int) info.id);
+        Nodo nodo = (Nodo) getListAdapter().getItem((int) info.id);
 
-        switch (item.getItemId()) {
+        if (nodo instanceof File){
 
-            //Reproducir
-            case 1 :
+            File file = (File) nodo;
 
-                break;
+            switch (item.getItemId()) {
 
-            // Añadir a la lista de reproducción
-            case 2 :
+                //Reproducir
+                case 1 :
 
-                break;
+                    TreeSet<File> treeSet = new TreeSet<File>();
+                    treeSet.add(file);
+                    Manager.getInstance().setList(treeSet);
 
-            //Añadir a Album
-            case 3 :
+                    Intent i = new Intent(this,PlayActivity.class);
+                    startActivity(i);
 
-                break;
+                    break;
 
-            // Ver detalles
-            case 4 :
+                // Añadir a la lista de reproducción
+                case 2 :
 
-                break;
+                    Manager.getInstance().getList().add(file);
+                    Toast.makeText(this,file.getName()+" se añadio a la lista actual",Toast.LENGTH_SHORT).show();
+                    break;
 
-            // Editar
-            case 5 :
+                //Añadir a Album
+                case 3 :
 
-                break;
+                    Intent in = new Intent(this,AlbumActivity.class);
+                    if (file instanceof AudioFile){
+                        in.putExtra("type","Audio");
+                    } else if(file instanceof VideoFile){
+                        in.putExtra("type","Video");
+                    } else if(file instanceof ImageFile){
+                        in.putExtra("type","Image");
+                    }
+                    in.putExtra("id",file.getId());
+                    startActivity(in);
 
-            // Eliminar
-            case 6 :
 
-                break;
+                    break;
+
+                // Ver detalles
+                case 4 :
+
+                    Intent d = new Intent(this,FileDetailActivity.class);
+
+                    d.putExtra("name",file.getName());
+                    d.putExtra("size",file.getSize());
+                    d.putExtra("date_last_mod",file.getDate_last_mod());
+                    d.putExtra("date_last_rep",file.getDate_last_rep());
+                    d.putExtra("reproductions",file.getReproductions());
+                    d.putExtra("hashtags",file.getHashtags());
+
+                    if (file instanceof AudioFile){
+                        d.putExtra("type","Audio");
+                        d.putExtra("duration",((AudioFile) file).getDuration());
+                        d.putExtra("bits_per_second",((AudioFile) file).getBits_per_second());
+                    } else if (file instanceof ImageFile){
+                        d.putExtra("type","Imagen");
+                        d.putExtra("resolution",((ImageFile) file).getResolution());
+                        d.putExtra("width",((ImageFile) file).getWidth());
+                        d.putExtra("height",((ImageFile) file).getHeight());
+                    } else if (file instanceof VideoFile){
+                        d.putExtra("type","Video");
+                        d.putExtra("duration",((VideoFile) file).getDuration());
+                        d.putExtra("resolution",((VideoFile) file).getResolution());
+                        d.putExtra("frames",((VideoFile) file).getFrames());
+                    }
+
+                    startActivity(d);
+
+                    break;
+
+                // Configurar
+                case 5 :
+
+                    Intent c = new Intent(this,FileConfigActivity.class);
+
+                    c.putExtra("id", file.getId());
+                    c.putExtra("name",file.getName());
+
+                    startActivity(c);
+
+                    break;
+
+                // Eliminar
+                case 6 :
+
+                    /*
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            file.delete();
+
+                        }
+                    });
+
+                    alertDialogBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alertDialogBuilder.setMessage(R.string.dialog_delete_file);
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                    */
+                    file.delete();
+                    updateList();
+                    Toast.makeText(this,file.getName()+" fue eliminado",Toast.LENGTH_SHORT).show();
+            }
+        } else if(nodo instanceof Album){
+
+            Album album = (Album) nodo;
+
+            switch (item.getItemId()) {
+
+                //Abrir Album
+                case 1:
+                    library.clear();
+                    library.addAll(album.getFiles());
+                    library.addAll(album.getAlbums());
+                    id_up_container = album.getContainer();
+                    id_container = album.getId();
+                    setListAdapter(new FileAdapter(this, library));
+                    registerForContextMenu(getListView());
+
+                    break;
+                // Eliminar un Album
+                case 6:
+                    Manager.getInstance().removeAlbum(album.getId());
+                    Manager.getInstance().loadFromDb();
+                    library.clear();
+                    library.addAll(album.getFiles());
+                    library.addAll(album.getAlbums());
+                    setListAdapter(new FileAdapter(this, library));
+                    registerForContextMenu(getListView());
+
+            }
 
         }
+
+
 
         Toast.makeText(this,item.getTitle(),Toast.LENGTH_SHORT).show();
         return true;

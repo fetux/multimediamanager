@@ -35,6 +35,13 @@ public class NewFileActivity extends Activity{
     }
 
     public void onRadioButtonClicked(View view) {
+
+
+
+        //Validation
+
+
+
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
         Intent i;

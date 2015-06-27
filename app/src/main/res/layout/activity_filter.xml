@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ScrollView
+        android:id="@+id/svFilter"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccione un filtro:"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Buscar archivos por tamaño"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Operador:"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroupSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioButtonSize1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="menor"
+                    />
+
+                <RadioButton
+                    android:id="@+id/radioButtonSize2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="menor o igual"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonSize3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mayor"
+                    />
+
+                <RadioButton
+                    android:id="@+id/radioButtonSize4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mayor o igual"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Tamaño:"/>
+
+            <EditText
+                android:id="@+id/editTextSize"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
+
+            <Button
+                android:id="@+id/buttonSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar por tamaño"
+                android:onClick="onButtonSizeClicked"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+            <View style="@style/Divider"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Buscar archivos por nombre"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre (total o parcial):"/>
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar por nombre"
+                android:onClick="onButtonNameClicked"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+            <View style="@style/Divider"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Buscar archivos por fecha"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha:"/>
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:id="@+id/datePicker" />
+
+            <Button
+                android:id="@+id/buttonDateMod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar última modificación"
+                android:onClick="onButtonDateModClicked"/>
+
+            <Button
+                android:id="@+id/buttonDateRep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar última reproducción"
+                android:onClick="onButtonDateRepClicked"/>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+            <View style="@style/Divider"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.1" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Buscar archivos por hashtags"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Hashtag (total o parcial):"/>
+
+            <EditText
+                android:id="@+id/editTextHashtag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonHashtag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar por hashtag"
+                android:onClick="onButtonHashtagClicked"/>
+
+
+            </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

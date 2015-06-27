@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Multimedia</string>
-
     <string name="action_settings">Configuración</string>
     <string name="action_new_file">Nuevo Archivo</string>
     <string name="action_new_folder">Nueva Carpeta</string>
@@ -11,6 +10,16 @@
     <string name="empty">No hay archivos</string>
     <string name="action_library">Librería</string>
     <string name="action_reports">Reportes</string>
-    <string name="reportsNote">Seleccione un reporte</string>
+    <string name="report1">Listado Completo de archivos agrupado por tipo. Ordenado por tamaño descendente. Cantidad de archivos y Tamaño promedio</string>
+    <string name="report2">Ranking de archivos por cantidad de reproducciones</string>
+    <string name="dialog_delete_file">¿Seguro que desea eliminar el archivo?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="action_up_level">Subir un nivel</string>
+    <string name="action_filter">Filtrar</string>
+    <string name="title_activity_album">AlbumActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_sort">Ordenar por...</string>
+    <string name="action_play_sorted">Reproducir ordenado</string>
 
 </resources>

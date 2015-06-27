@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.fetu.multimedia.MainActivity.app;
+import com.fetu.manager.Manager;
 
 /**
  * Created by fetu on 24/05/15.
@@ -62,7 +62,7 @@ public class NewImageFileActivity extends Activity{
         TextView width = (TextView) findViewById(R.id.width);
         TextView height = (TextView) findViewById(R.id.height);
 
-        app.addFile(
+        Manager.getInstance().addFile(
                 name.getText().toString(),
                 Integer.parseInt(size.getText().toString()),
                 path.getText().toString(),

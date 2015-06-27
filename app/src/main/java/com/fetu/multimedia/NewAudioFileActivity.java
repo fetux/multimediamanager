@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.fetu.multimedia.MainActivity.app;
+import com.fetu.manager.Manager;
+
+//import static com.fetu.multimedia.MainActivity.app;
 
 /**
  * Created by fetu on 24/05/15.
@@ -30,6 +32,7 @@ public class NewAudioFileActivity extends Activity{
         setContentView(R.layout.new_audio_file);
 
         Bundle extras = getIntent().getExtras();
+
         name = (TextView) findViewById(R.id.name);
         name.setText(extras.getString("name"));
         size = (TextView) findViewById(R.id.size);
@@ -47,7 +50,7 @@ public class NewAudioFileActivity extends Activity{
         TextView bps = (TextView) findViewById(R.id.bps);
         TextView duration = (TextView) findViewById(R.id.duration);
 
-        app.addFile(
+        Manager.getInstance().addFile(
                 name.getText().toString(),
                 Integer.parseInt(size.getText().toString()),
                 path.getText().toString(),
